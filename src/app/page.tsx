@@ -8,9 +8,15 @@ async function getIp() {
   return data;
 }
 
+async function getBoards() {
+  const response = await fetch(baseUrl + "/api/boards");
+  const data = await response.json();
+  return data;
+}
+
 export default async function Home() {
   const ipAddress = await getIp();
-  console.log(ipAddress);
+  const boards = await getBoards();
 
   return (
     <main className="flex flex-col px-20  min-h-screen">
@@ -38,7 +44,7 @@ export default async function Home() {
         <div className="bg-slate-200 flex">
           <div className=""></div>
           <Link href={"/random"} className="font-bold">
-            Random
+            {boards[0].name}
           </Link>
         </div>
       </div>
