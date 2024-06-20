@@ -5,10 +5,9 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 const montserrat = Montserrat({ subsets: ["latin"] });
 
-
 export const metadata: Metadata = {
   title: "IndoChan",
-  description: "Modern Imageboard using Nextjs",
+  description: "A simple and modern Indonesian image-based bulletin board",
 };
 
 export default function RootLayout({
