@@ -25,14 +25,14 @@ export default async function Home() {
 
   return (
     <main className="flex flex-col lg:px-60 md:px-60 sm:px-32 min-h-screen gap-2">
-      <div className="flex justify-center">
+      <section className="flex justify-center">
         <h1 className="flex items-center text-6xl font-bold p-10 text-red-900">
           <img src="/indochan-logo.png" className="h-32"></img>
           Indochan
         </h1>
-      </div>
+      </section>
 
-      <div className="border-solid border-red-700 border-2 bg-white shadow-lg rounded-md">
+      <section className="border-solid border-red-700 border-2 bg-white shadow-lg rounded-md">
         <h1 className="bg-red-900 font-bold text-white pl-2">
           What is IndoChan?
         </h1>
@@ -50,9 +50,9 @@ export default async function Home() {
           <h1 className="bg-red-900 font-bold text-white">Your IP Address</h1>
           <p className="text-sm">Your ip is {ipAddress.ip}</p>
         </div>
-      </div>
+      </section>
 
-      <div className="border-solid border-red-700 border-2 bg-white shadow-lg rounded-md">
+      <section className="border-solid border-red-700 border-2 bg-white shadow-lg rounded-md">
         <h1 className="bg-orange-300 font-bold text-red-900 pl-2 rounded-t-sm">
           Boards
         </h1>
@@ -69,9 +69,9 @@ export default async function Home() {
             );
           })}
         </div>
-      </div>
+      </section>
 
-      <div className="border-solid border-red-700 border-2 bg-white rounded-md shadow-lg">
+      <section className="border-solid border-red-700 border-2 bg-white rounded-md shadow-lg">
         <h1 className="bg-orange-300 font-bold text-red-900 pl-2 rounded-t-sm">
           Post Terbaru
         </h1>
@@ -79,9 +79,9 @@ export default async function Home() {
           <div className=""></div>
           <p>Random</p>
         </div>
-      </div>
+      </section>
 
-      <div className="border-solid border-red-700 border-2 bg-white rounded-md shadow-lg">
+      <section className="border-solid border-red-700 border-2 bg-white rounded-md shadow-lg">
         <h1 className="bg-orange-300 font-bold text-red-900 pl-2 rounded-t-sm">
           Utas Populer
         </h1>
@@ -89,9 +89,9 @@ export default async function Home() {
           <div className=""></div>
           <p>Random</p>
         </div>
-      </div>
+      </section>
 
-      <div className="border-solid border-red-700 border-2 bg-white rounded-md shadow-lg">
+      <section className="border-solid border-red-700 border-2 bg-white rounded-md shadow-lg">
         <h1 className="bg-orange-300 font-bold text-red-900 pl-2 rounded-t-sm">
           Statistik
         </h1>
@@ -99,7 +99,7 @@ export default async function Home() {
           <div className=""></div>
           <p>Random</p>
         </div>
-      </div>
+      </section>
 
       <footer className="flex justify-center bg-red-900 text-white p-2 my-5 rounded-lg shadow-lg">
         <p>Copyright © IndoChan 2024</p>
