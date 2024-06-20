@@ -1,19 +1,21 @@
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { cache } from "react";
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL as string;
 
 async function getIp() {
-  const response = await fetch(baseUrl + "/api/getIp", {
-    cache: "no-cache",
-  });
+  const response = await fetch(baseUrl + "/api/getIp");
   const data = await response.json();
+  if (!response.ok) {
+    throw new Error("Something went wrong!");
+  }
   return data;
 }
 
 async function getBoards() {
   const response = await fetch(baseUrl + "/api/boards");
   const data = (await response.json()) as BoardsInterface[];
+  if (!response.ok) {
+    throw new Error("Something went wrong!");
+  }
   return data;
 }
 
@@ -90,7 +92,9 @@ export default async function Home() {
       </div>
 
       <div className="border-solid border-red-700 border-2 bg-white rounded-md shadow-lg">
-        <h1 className="bg-orange-300 font-bold text-red-900 pl-2 rounded-t-sm">Statistik</h1>
+        <h1 className="bg-orange-300 font-bold text-red-900 pl-2 rounded-t-sm">
+          Statistik
+        </h1>
         <div className="bg-white flex">
           <div className=""></div>
           <p>Random</p>
