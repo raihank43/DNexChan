@@ -11,16 +11,30 @@ import {
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { DraggableWindow } from "./DraggableComponent";
+import { useState } from "react";
 
 export default function ThreadComponent({ getBoard }: { getBoard: any }) {
+  const [showWindow, setShowWindow] = useState(false);
+
+  const handleCreateThreadButton = () => {
+    showWindow ? setShowWindow(false) : setShowWindow(true);
+  };
   const handleUpdate = async () => {
     console.log("Update");
     await getBoard({ params: { boards: "a" } });
   };
   return (
     <>
+      {showWindow && <DraggableWindow />}
+
       <section className="flex justify-center flex-col items-center p-5">
-        <Button className="bg-red-900 font-semibold">Buat Utas Baru</Button>
+        <Button
+          onClick={handleCreateThreadButton}
+          className="bg-red-900 font-semibold"
+        >
+          Buat Utas Baru
+        </Button>
       </section>
 
       <section className="flex gap-2 justify-evenly px-10">
