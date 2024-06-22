@@ -44,7 +44,7 @@ export default async function Boards({
         </section>
       </div>
 
-      <ThreadComponent getBoard={getBoard} />
+      <ThreadComponent getBoard={getBoard} params={params} />
     </main>
   );
 }

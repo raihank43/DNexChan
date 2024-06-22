@@ -92,8 +92,8 @@ export default async function Home() {
           Utas Populer
         </h1>
         <div className="gap-4 grid grid-cols-2 p-6">
-          <ThreadCards imageUrl="https://wallpapercave.com/wp/wp2564007.jpg" />
-          <ThreadCards imageUrl="https://wallpapercave.com/wp/wp2564007.jpg" />
+          {/* <ThreadCards imageUrl="https://wallpapercave.com/wp/wp2564007.jpg" />
+          <ThreadCards imageUrl="https://wallpapercave.com/wp/wp2564007.jpg" /> */}
         </div>
       </section>
 
