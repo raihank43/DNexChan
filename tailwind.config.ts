@@ -1,3 +1,4 @@
+import { nextui } from "@nextui-org/theme";
 import type { Config } from "tailwindcss";
 
 const config = {
@@ -7,6 +8,11 @@ const config = {
     "./components/**/*.{ts,tsx}",
     "./app/**/*.{ts,tsx}",
     "./src/**/*.{ts,tsx}",
+    // NEXTUI: Add NextUI components styles
+    // single component styles
+    // "./node_modules/@nextui-org/theme/dist/components/card.js",
+    // or you can use a glob pattern (multiple component styles)
+    "./node_modules/@nextui-org/theme/dist/components/(card|button|snippet|code|input|image).js",
   ],
   prefix: "",
   theme: {
@@ -81,7 +87,7 @@ const config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"), nextui()],
 } satisfies Config;
 
 export default config;

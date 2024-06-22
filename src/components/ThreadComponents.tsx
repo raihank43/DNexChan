@@ -13,6 +13,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { DraggableWindow } from "./DraggableComponent";
 import { useState } from "react";
+import ThreadCards from "./ThreadCards";
 
 export default function ThreadComponent({ getBoard }: { getBoard: any }) {
   const [showWindow, setShowWindow] = useState(false);
@@ -27,7 +28,6 @@ export default function ThreadComponent({ getBoard }: { getBoard: any }) {
   return (
     <>
       {showWindow && <DraggableWindow />}
-
       <section className="flex justify-center flex-col items-center p-5">
         <Button
           onClick={handleCreateThreadButton}
@@ -36,7 +36,6 @@ export default function ThreadComponent({ getBoard }: { getBoard: any }) {
           Buat Utas Baru
         </Button>
       </section>
-
       <section className="flex gap-2 justify-evenly px-10">
         <Link
           href={"/"}
@@ -69,11 +68,12 @@ export default function ThreadComponent({ getBoard }: { getBoard: any }) {
           </Select>
         </div>
       </section>
-
-      <section className="flex justify-center flex-col items-center p-5 ">
-        <div className="min-h-screen w-full bg-orange-300">
-          <h1>Thread Component</h1>
-        </div>
+      <section className="flex justify-center flex-wrap gap-10 items-center p-5 ">
+        <ThreadCards />
+        <ThreadCards />
+        <ThreadCards />
+        <ThreadCards />
+        <ThreadCards />
       </section>
     </>
   );
