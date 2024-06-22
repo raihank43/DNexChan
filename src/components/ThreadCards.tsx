@@ -1,30 +1,43 @@
-import { Card, CardHeader, CardBody } from "@nextui-org/card";
+import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/card";
 import { Image } from "@nextui-org/image";
 
-export default function ThreadCards() {
+export default function ThreadCards({ imageUrl }: { imageUrl: string }) {
+  const item = {
+    title: "Thread Title",
+    img: "https://i.pinimg.com/736x/88/53/1c/88531c7511bccb1f899a8b330a05fb43--pokemon-games-penguin.jpg",
+  };
   return (
-    <Card className="py-4">
-      <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
-        <p className="text-tiny uppercase font-bold">Daily Mix</p>
-        <small className="text-default-500">12 Tracks</small>
-        <h4 className="font-bold text-large">Frontend Radio</h4>
-      </CardHeader>
-      <CardBody className="overflow-visible py-2">
+    <Card shadow="sm" isPressable onPress={() => console.log("item pressed")}>
+      <CardBody className="overflow-visible p-0">
         <Image
-          alt="Card background"
-          className="object-cover rounded-xl"
-          src="https://nextui.org/images/hero-card-complete.jpeg"
-          width={270}
+          shadow="sm"
+          radius="lg"
+          width="100%"
+          alt={item.title}
+          className="w-full object-fit min-h-[150px] max-h-[250px]"
+          src={imageUrl}
         />
-        <div className="flex flex-wrap items-center justify-center mt-2">
-          <p className="text-default-500 max-w-60 text-center">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo culpa
-            ducimus dolorem aperiam pariatur dolores beatae adipisci itaque
-            molestiae sapiente, provident nisi perspiciatis rem, harum hic
-            mollitia perferendis asperiores accusamus.
-          </p>
+        <div className="flex flex-col justify-center p-3 items-center">
+          <div className="flex flex-col justify-center items-center">
+            <p className="text-sm">0 / 0 / 0</p>
+            <h3 className="text-xl font-bold text-default-900">{item.title}</h3>
+          </div>
+
+          <div className="flex justify-center">
+            <p className="text-default-900 text-sm text-center">
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ullam,
+              repudiandae possimus? Magni, quo expedita quidem iste quae maxime
+              unde consequatur eos asperiores? Doloremque quidem iure facilis
+              expedita repellendus sit dolorum.
+            </p>
+          </div>
         </div>
       </CardBody>
+
+      {/* <CardFooter className="text-small justify-between">
+        <b>Thread Title</b>
+        <p className="text-default-500">{item.price}</p>
+      </CardFooter> */}
     </Card>
   );
 }

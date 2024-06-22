@@ -68,12 +68,15 @@ export default function ThreadComponent({ getBoard }: { getBoard: any }) {
           </Select>
         </div>
       </section>
-      <section className="flex justify-center flex-wrap gap-10 items-center p-5 ">
-        <ThreadCards />
-        <ThreadCards />
-        <ThreadCards />
-        <ThreadCards />
-        <ThreadCards />
+
+      <section className="gap-4 grid grid-cols-2 sm:grid-cols-2 items-center p-5 px-10 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-8">
+        <ThreadCards imageUrl="https://i.pinimg.com/736x/88/53/1c/88531c7511bccb1f899a8b330a05fb43--pokemon-games-penguin.jpg" />
+        <ThreadCards imageUrl="https://th.bing.com/th/id/OIP.qRM75FBA4wQGA2p41Hm9NgHaLM?rs=1&pid=ImgDetMain" />
+        <ThreadCards imageUrl="https://pngimg.com/uploads/pokemon/pokemon_PNG154.png" />
+        <ThreadCards imageUrl="https://th.bing.com/th/id/OIP.vg1KOuYtiZI2V0_ZXB-05gAAAA?rs=1&pid=ImgDetMain" />
+        <ThreadCards imageUrl="https://th.bing.com/th/id/OIP.voLFhNKVfu3mMWUeEgKgEgHaHa?rs=1&pid=ImgDetMain" />
+        <ThreadCards imageUrl="https://th.bing.com/th/id/OIP.voLFhNKVfu3mMWUeEgKgEgHaHa?rs=1&pid=ImgDetMain" />
+        <ThreadCards imageUrl="https://wallpapercave.com/wp/wp2564007.jpg" />
       </section>
     </>
   );
