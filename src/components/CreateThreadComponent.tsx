@@ -21,7 +21,7 @@ export function CreateThreadComponent({
   };
   return (
     <Draggable handle=".drag-handle">
-      <div className="bg-orange-200 shadow-lg rounded-md border-2 border-red-900 absolute top-1/2 left-1/2 z-50 w-[500px]">
+      <div className="bg-orange-200 shadow-lg rounded-md border-2 border-red-900 absolute top-1/4 left-1/3 z-50 w-[500px]">
         <div className="drag-handle flex items-center justify-between gap-5 bg-red-900">
           <h1 className="text-orange-300 font-bold pl-5">Buat Utas Baru</h1>
 
