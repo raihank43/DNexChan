@@ -11,7 +11,7 @@ import {
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { DraggableWindow } from "./DraggableComponent";
+import { CreateThreadComponent } from "./CreateThreadComponent";
 import { useState } from "react";
 import ThreadCards from "./ThreadCards";
 
@@ -27,7 +27,7 @@ export default function ThreadComponent({ getBoard }: { getBoard: any }) {
   };
   return (
     <>
-      {showWindow && <DraggableWindow />}
+      {showWindow && <CreateThreadComponent setShowWindow={setShowWindow} />}
       <section className="flex justify-center flex-col items-center p-5">
         <Button
           onClick={handleCreateThreadButton}
