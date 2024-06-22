@@ -1,3 +1,5 @@
+import ThreadCards from "@/components/ThreadCards";
+import { Image } from "@nextui-org/image";
 import Link from "next/link";
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL as string;
 
@@ -75,9 +77,13 @@ export default async function Home() {
         <h1 className="bg-orange-300 font-bold text-red-900 pl-2 rounded-t-sm">
           Post Terbaru
         </h1>
-        <div className="bg-white flex">
-          <div className=""></div>
-          <p>Random</p>
+        <div className="bg-white gap-4 grid grid-cols-2 p-6">
+          <Image
+            alt="Random"
+            src="https://wallpapercave.com/wp/wp2564007.jpg"
+            width={300}
+            height={300}
+          />
         </div>
       </section>
 
@@ -85,9 +91,9 @@ export default async function Home() {
         <h1 className="bg-orange-300 font-bold text-red-900 pl-2 rounded-t-sm">
           Utas Populer
         </h1>
-        <div className="bg-white flex">
-          <div className=""></div>
-          <p>Random</p>
+        <div className="gap-4 grid grid-cols-2 p-6">
+          <ThreadCards imageUrl="https://wallpapercave.com/wp/wp2564007.jpg" />
+          <ThreadCards imageUrl="https://wallpapercave.com/wp/wp2564007.jpg" />
         </div>
       </section>
 

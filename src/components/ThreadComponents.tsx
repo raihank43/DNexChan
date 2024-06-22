@@ -13,6 +13,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { DraggableWindow } from "./DraggableComponent";
 import { useState } from "react";
+import ThreadCards from "./ThreadCards";
 
 export default function ThreadComponent({ getBoard }: { getBoard: any }) {
   const [showWindow, setShowWindow] = useState(false);
@@ -27,7 +28,6 @@ export default function ThreadComponent({ getBoard }: { getBoard: any }) {
   return (
     <>
       {showWindow && <DraggableWindow />}
-
       <section className="flex justify-center flex-col items-center p-5">
         <Button
           onClick={handleCreateThreadButton}
@@ -36,7 +36,6 @@ export default function ThreadComponent({ getBoard }: { getBoard: any }) {
           Buat Utas Baru
         </Button>
       </section>
-
       <section className="flex gap-2 justify-evenly px-10">
         <Link
           href={"/"}
@@ -70,10 +69,14 @@ export default function ThreadComponent({ getBoard }: { getBoard: any }) {
         </div>
       </section>
 
-      <section className="flex justify-center flex-col items-center p-5 ">
-        <div className="min-h-screen w-full bg-orange-300">
-          <h1>Thread Component</h1>
-        </div>
+      <section className="gap-4 grid grid-cols-2 sm:grid-cols-2 items-center p-5 px-10 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-8">
+        <ThreadCards imageUrl="https://i.pinimg.com/736x/88/53/1c/88531c7511bccb1f899a8b330a05fb43--pokemon-games-penguin.jpg" />
+        <ThreadCards imageUrl="https://th.bing.com/th/id/OIP.qRM75FBA4wQGA2p41Hm9NgHaLM?rs=1&pid=ImgDetMain" />
+        <ThreadCards imageUrl="https://pngimg.com/uploads/pokemon/pokemon_PNG154.png" />
+        <ThreadCards imageUrl="https://th.bing.com/th/id/OIP.vg1KOuYtiZI2V0_ZXB-05gAAAA?rs=1&pid=ImgDetMain" />
+        <ThreadCards imageUrl="https://th.bing.com/th/id/OIP.voLFhNKVfu3mMWUeEgKgEgHaHa?rs=1&pid=ImgDetMain" />
+        <ThreadCards imageUrl="https://th.bing.com/th/id/OIP.voLFhNKVfu3mMWUeEgKgEgHaHa?rs=1&pid=ImgDetMain" />
+        <ThreadCards imageUrl="https://wallpapercave.com/wp/wp2564007.jpg" />
       </section>
     </>
   );
