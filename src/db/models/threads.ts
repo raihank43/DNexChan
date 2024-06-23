@@ -5,7 +5,21 @@ export default class ThreadsModel {
   static async getThreads(BoardId: string) {
     return db
       .collection("threads")
-      .aggregate([{ $match: { BoardId } }, { $sort: { updatedAt: -1 } }])
+      .aggregate([
+        { $match: { BoardId } },
+        { $sort: { updatedAt: -1 } },
+        {
+          $addFields: {
+            totalUniqueIps: { $size: "$uniqueIps" }, // Menghitung jumlah uniqueIps
+          },
+        },
+        {
+          $project: {
+            ipAddress: 0,
+            uniqueIps: 0,
+          },
+        },
+      ])
       .toArray() as ThreadsInterface[];
   }
   static async getThread(board: string, postNumber: number) {

@@ -10,6 +10,7 @@ export default interface ThreadsInterface {
   ipAddress: string;
   name: string;
   uniqueIps?: string[];
+  totalUniqueIps?: number;
   totalReplies?: number;
   totalFiles?: number;
   email?: string;

@@ -26,7 +26,7 @@ export default function ThreadCards({
           <div className="flex flex-col justify-center p-3 items-center">
             <div className="flex flex-col justify-center items-center">
               <p className="text-sm">
-                {`${thread.totalReplies} / ${thread.totalFiles} / ${thread.uniqueIps?.length}`}
+                {`${thread.totalReplies} / ${thread.totalFiles} / ${thread.totalUniqueIps}`}
               </p>
               <h3 className="text-xl font-bold text-default-900">
                 {thread.title}
