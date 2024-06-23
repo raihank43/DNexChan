@@ -1,23 +1,60 @@
+"use client";
 import Draggable from "react-draggable";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+import { useToast } from "@/components/ui/use-toast";
+import { useState } from "react";
+import { ReloadIcon } from "@radix-ui/react-icons";
 
 export function CreateThreadComponent({
   setShowWindow,
+  params,
 }: {
   setShowWindow: React.Dispatch<React.SetStateAction<boolean>>;
+  params: { boards: string };
 }) {
+  const { toast } = useToast();
+  const [loading, setLoading] = useState(false);
+  console.log(loading, "loading state <<<<");
   const handleSubmit = async (formData: FormData) => {
-    const rawData = {
-      name: formData.get("nama"),
-      title: formData.get("title"),
-      options: formData.get("email"),
-      content: formData.get("content"),
-      picture: formData.get("picture"),
-    };
+    setLoading(true);
+    console.log(loading, "initial state <<<<");
+    try {
+      const data = await fetch(baseUrl + `/api/threads/${params.boards}`, {
+        method: "POST",
+        body: formData,
+      });
 
-    console.log(rawData);
+      console.log(loading, "<<<<");
+
+      const response = await data.json();
+
+      if (response.status === 400) {
+        console.log("error", response.message);
+        toast({
+          title: "Uh oh! Something went wrong.",
+          description: response.message,
+          variant: "destructive",
+          className: "p-4",
+        });
+      }
+
+      if (response.status === 200) {
+        toast({
+          title: "Success!",
+          description: "Thread created successfully.",
+          variant: "default",
+          className: "p-4 bg-green-500 text-white",
+        });
+        setShowWindow(false);
+      }
+
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <Draggable handle=".drag-handle">
@@ -35,16 +72,21 @@ export function CreateThreadComponent({
 
         <form action={handleSubmit} className="flex flex-col gap-2 p-5">
           <div className="flex justify-between gap-2">
-            <Input type="text" placeholder="Nama" name="nama" />
-            <Input type="text" placeholder="Title" name="title" />
+            <Input type="text" placeholder="Nama" name="name" />
+            <Input type="text" placeholder="Judul Utas" name="title" />
             <Input type="text" placeholder="Email" name="email" />
           </div>
 
           <Textarea placeholder="Content" name="content" />
-          <Input id="picture" type="file" name="picture" />
-          <Button className="bg-red-900 font-semibold" type="submit">
-            Submit
-          </Button>
+          <Input id="file" type="file" name="file" />
+          {loading ? (
+            <Button disabled>
+              <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+              Memposting...
+            </Button>
+          ) : (
+            <Button className="bg-red-900 font-semibold">Submit</Button>
+          )}
         </form>
       </div>
     </Draggable>

@@ -31,7 +31,7 @@ export async function POST(
     const data = await request.formData();
     const file: File | null = data.get("file") as unknown as File;
 
-    if (!file) {
+    if (!file || !file.name || !file.size) {
       return NextResponse.json({ status: 400, message: "No file selected." });
     }
 

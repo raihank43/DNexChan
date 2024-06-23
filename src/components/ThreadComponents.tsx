@@ -39,7 +39,9 @@ export default function ThreadComponent({
   };
   return (
     <>
-      {showWindow && <CreateThreadComponent setShowWindow={setShowWindow} />}
+      {showWindow && (
+        <CreateThreadComponent setShowWindow={setShowWindow} params={params} />
+      )}
       <section className="flex justify-center flex-col items-center p-5">
         <Button
           onClick={handleCreateThreadButton}
