@@ -22,12 +22,39 @@ export default class ThreadsModel {
       ])
       .toArray() as ThreadsInterface[];
   }
+
   static async getThread(board: string, postNumber: number) {
     return db
       .collection("threads")
       .findOne({ board, postNumber }) as ThreadsInterface;
   }
+
   static async createThread(thread: ThreadsInterface) {
     return db.collection("threads").insertOne(thread);
+  }
+
+  static async findThreadByPostNumber(postNumber: number, boardId: string) {
+    return db
+      .collection("threads")
+      .aggregate([
+        {
+          $match: {
+            postNumber: postNumber, // Asumsi postNumber adalah variabel yang tersedia
+            BoardId: boardId,
+          },
+        },
+        {
+          $addFields: {
+            totalUniqueIps: { $size: "$uniqueIps" },
+          },
+        },
+        {
+          $project: {
+            ipAddress: 0,
+            uniqueIps: 0,
+          },
+        },
+      ])
+      .toArray() as ThreadsInterface[];
   }
 }

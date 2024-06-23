@@ -12,7 +12,7 @@ export function CreateThreadComponent({
     const rawData = {
       name: formData.get("nama"),
       title: formData.get("title"),
-      options: formData.get("options"),
+      options: formData.get("email"),
       content: formData.get("content"),
       picture: formData.get("picture"),
     };
@@ -37,7 +37,7 @@ export function CreateThreadComponent({
           <div className="flex justify-between gap-2">
             <Input type="text" placeholder="Nama" name="nama" />
             <Input type="text" placeholder="Title" name="title" />
-            <Input type="text" placeholder="Options" name="options" />
+            <Input type="text" placeholder="Email" name="email" />
           </div>
 
           <Textarea placeholder="Content" name="content" />
