@@ -14,22 +14,28 @@ import { Button } from "@/components/ui/button";
 import { CreateThreadComponent } from "./CreateThreadComponent";
 import { useState } from "react";
 import ThreadCards from "./ThreadCards";
+import ThreadsInterface from "@/interfaces/threadsInterface";
 
 export default function ThreadComponent({
   getBoard,
   params,
+  threads,
+  getThreads,
 }: {
   getBoard: any;
+  getThreads: any;
   params: { boards: string };
+  threads: ThreadsInterface[];
 }) {
   const [showWindow, setShowWindow] = useState(false);
+  const [threadData, setThreadData] = useState<ThreadsInterface[]>(threads);
 
   const handleCreateThreadButton = () => {
     showWindow ? setShowWindow(false) : setShowWindow(true);
   };
   const handleUpdate = async () => {
-    console.log("Update");
-    await getBoard({ params: { boards: "a" } });
+    const threads = (await getThreads({ params })) as ThreadsInterface[];
+    setThreadData(threads);
   };
   return (
     <>
@@ -76,34 +82,13 @@ export default function ThreadComponent({
       </section>
 
       <section className="gap-4 grid grid-cols-2 sm:grid-cols-2 items-center p-5 px-10 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-8">
-        <ThreadCards
-          params={params}
-          imageUrl="https://i.pinimg.com/736x/88/53/1c/88531c7511bccb1f899a8b330a05fb43--pokemon-games-penguin.jpg"
-        />
-        <ThreadCards
-          params={params}
-          imageUrl="https://th.bing.com/th/id/OIP.qRM75FBA4wQGA2p41Hm9NgHaLM?rs=1&pid=ImgDetMain"
-        />
-        <ThreadCards
-          params={params}
-          imageUrl="https://pngimg.com/uploads/pokemon/pokemon_PNG154.png"
-        />
-        <ThreadCards
-          params={params}
-          imageUrl="https://th.bing.com/th/id/OIP.vg1KOuYtiZI2V0_ZXB-05gAAAA?rs=1&pid=ImgDetMain"
-        />
-        <ThreadCards
-          params={params}
-          imageUrl="https://th.bing.com/th/id/OIP.voLFhNKVfu3mMWUeEgKgEgHaHa?rs=1&pid=ImgDetMain"
-        />
-        <ThreadCards
-          params={params}
-          imageUrl="https://th.bing.com/th/id/OIP.voLFhNKVfu3mMWUeEgKgEgHaHa?rs=1&pid=ImgDetMain"
-        />
-        <ThreadCards
-          params={params}
-          imageUrl="https://wallpapercave.com/wp/wp2564007.jpg"
-        />
+        {threadData.map((thread) => (
+          <ThreadCards
+            key={String(thread._id)}
+            thread={thread}
+            params={params}
+          />
+        ))}
       </section>
     </>
   );

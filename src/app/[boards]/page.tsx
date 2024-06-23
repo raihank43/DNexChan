@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL as string;
 import ThreadComponent from "@/components/ThreadComponents";
+import ThreadsInterface from "@/interfaces/threadsInterface";
 
 async function getBoard({ params }: { params: { boards: string } }) {
   "use server";
@@ -10,6 +11,18 @@ async function getBoard({ params }: { params: { boards: string } }) {
   }
   const { data } = await board.json();
   return data as BoardsInterface;
+}
+
+async function getThreads({ params }: { params: { boards: string } }) {
+  "use server";
+  const threads = await fetch(baseUrl + `/api/threads/${params.boards}`, {
+    cache: "no-cache",
+  });
+  if (!threads.ok) {
+    throw new Error("Something went wrong!");
+  }
+  const { data } = await threads.json();
+  return data as ThreadsInterface[];
 }
 
 export async function generateMetadata({
@@ -30,6 +43,7 @@ export default async function Boards({
   params: { boards: string };
 }) {
   const board = await getBoard({ params });
+  const threads = await getThreads({ params });
   return (
     <main className="flex flex-col min-h-screen gap-2">
       <div className="px-10 mt-5">
@@ -44,7 +58,12 @@ export default async function Boards({
         </section>
       </div>
 
-      <ThreadComponent getBoard={getBoard} params={params} />
+      <ThreadComponent
+        getThreads={getThreads}
+        getBoard={getBoard}
+        params={params}
+        threads={threads}
+      />
     </main>
   );
 }
