@@ -38,7 +38,7 @@ export default function ThreadComponent({
     setThreadData(threads);
   };
 
-  console.log({ threadData });
+  // console.log({ threadData });
   return (
     <>
       {showWindow && (

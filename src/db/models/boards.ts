@@ -9,4 +9,9 @@ export default class BoardsModel {
       .collection("boards")
       .findOne({ initial: board }) as BoardsInterface;
   }
+  static async updateBoardTotalPosts(boardId: string) {
+    return db
+      .collection("boards")
+      .updateOne({ _id: boardId }, { $inc: { totalPosts: 1 } });
+  }
 }

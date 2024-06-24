@@ -5,9 +5,10 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 import { useToast } from "@/components/ui/use-toast";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import ThreadsInterface from "@/interfaces/threadsInterface";
+
 export function CreateThreadComponent({
   setShowWindow,
   params,
@@ -19,8 +20,6 @@ export function CreateThreadComponent({
 }) {
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
-  console.log(loading, "loading state <<<<");
-  const [tempData, setTempData] = useState(null);
 
   const handleSubmit = async (formData: FormData) => {
     setLoading(true);
@@ -51,9 +50,8 @@ export function CreateThreadComponent({
             className: "p-4 bg-green-500 text-white",
           });
           setLoading(false);
-          setTempData(response.data); // Menyimpan data ke state sementara
-          console.log("lewat sini");
-          // setShowWindow(false);
+          setThreadData((prev) => [response.data, ...prev]);
+          setShowWindow(false);
         }
       })
       .catch((error) => {
@@ -67,17 +65,6 @@ export function CreateThreadComponent({
         setLoading(false);
       });
   };
-
-  // Kemudian, di dalam useEffect atau callback lainnya
-  useEffect(() => {
-    if (tempData) {
-      console.log("masuk ke tempData >>>>", tempData); // Menampilkan data yang disimpan (opsional
-      setThreadData((prev) => [tempData, ...prev]);
-      setTempData(null); // Mengosongkan state sementara
-    }
-  }, [tempData]);
-
-  console.log(tempData, "tempData <<<<");
 
   return (
     <Draggable handle=".drag-handle">

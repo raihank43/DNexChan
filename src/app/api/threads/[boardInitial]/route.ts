@@ -91,6 +91,8 @@ export async function POST(
       board._id
     );
 
+    await BoardsModel.updateBoardTotalPosts(board._id);
+
     return NextResponse.json({
       status: 200,
       message: "Success",
