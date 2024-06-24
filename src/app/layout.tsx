@@ -27,7 +27,7 @@ export default function RootLayout({
             template='<div class="bar" role="bar">
           <div class="peg"></div></div></div>'
           />
-          <main className="flex min-h-screen flex-col antialiased bg-gradient-to-b from-orange-200 to-white">
+          <main className="flex min-h-screen flex-col antialiased bg-gradient-to-b from-orange-200 to-white transition-all ease-in-out duration-500">
             {children}
           </main>
           <Toaster />

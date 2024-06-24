@@ -60,7 +60,7 @@ export default function ThreadComponent({
           Buat Utas Baru
         </Button>
       </section>
-      <section className="flex gap-2 justify-evenly px-10">
+      <section className="flex gap-2 justify-evenly mx-10 py-3 border-y-2  border-orange-300 ">
         <Link
           href={"/"}
           className="bg-orange-300 font-semibold text-red-900 hover:bg-red-900 hover:text-orange-300 flex rounded-md p-2 text-sm items-center ease-out duration-300"
@@ -102,7 +102,7 @@ export default function ThreadComponent({
         </div>
       </section>
 
-      <section className="gap-4 grid grid-cols-2 sm:grid-cols-2 items-center p-5 px-10 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-8">
+      <section className="gap-4 grid grid-cols-2 sm:grid-cols-2 items-center p-5 px-10 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-8 transition-all ease-in-out h-full duration-500">
         {threadData.map((thread) => (
           <ThreadCards
             key={String(thread._id)}

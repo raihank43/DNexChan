@@ -45,7 +45,7 @@ export default async function Boards({
   const board = await getBoard({ params });
   const threads = await getThreads({ params });
   return (
-    <main className="flex flex-col min-h-screen gap-2">
+    <main className="flex flex-col min-h-[150vh] gap-2 transition-all ease-in-out duration-500">
       <div className="px-10 mt-5">
         <section className="flex justify-center flex-col items-center p-5 bg-orange-300 rounded-2xl shadow-sm  ">
           <h1 className="flex items-center text-4xl font-bold text-red-900">
