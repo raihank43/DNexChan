@@ -51,8 +51,23 @@ export async function POST(
       return NextResponse.json({ status: 404, message: "Board Not Found" });
     }
 
+    // check whether user has posted before in the last 5 minutes
+    const lastPost = await ThreadsModel.findLatestThreadByIp(
+      request.headers.get("x-real-ip") ?? "127.0.0.1"
+    );
+    if (lastPost) {
+      const lastPostDate = new Date(lastPost[0].createdAt).getTime();
+      const currentDate = new Date().getTime();
+      if (currentDate - lastPostDate < 300000) {
+        return NextResponse.json({
+          status: 400,
+          message: "You can only post once every 5 minutes.",
+        });
+      }
+    }
+
     const rawData = {
-      name: (data.get("name") as string) || ("Anonymous" as string),
+      name: (data.get("name") as string) || ("Awanama" as string),
       email: data.get("email") as string,
       title: data.get("title") as string,
       content: content,

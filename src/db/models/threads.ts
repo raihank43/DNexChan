@@ -57,4 +57,25 @@ export default class ThreadsModel {
       ])
       .toArray() as ThreadsInterface[];
   }
+  static async findLatestThreadByIp(ipAddress: string) {
+    return db
+      .collection("threads")
+      .aggregate([
+        { $match: { ipAddress } },
+        { $sort: { createdAt: -1 } },
+        { $limit: 1 },
+        {
+          $addFields: {
+            totalUniqueIps: { $size: "$uniqueIps" },
+          },
+        },
+        {
+          $project: {
+            ipAddress: 0,
+            uniqueIps: 0,
+          },
+        },
+      ])
+      .toArray() as ThreadsInterface[];
+  }
 }
