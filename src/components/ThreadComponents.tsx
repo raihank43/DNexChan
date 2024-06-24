@@ -15,6 +15,7 @@ import { CreateThreadComponent } from "./CreateThreadComponent";
 import { useState } from "react";
 import ThreadCards from "./ThreadCards";
 import ThreadsInterface from "@/interfaces/threadsInterface";
+import { ReloadIcon } from "@radix-ui/react-icons";
 
 export default function ThreadComponent({
   getBoard,
@@ -29,13 +30,16 @@ export default function ThreadComponent({
 }) {
   const [showWindow, setShowWindow] = useState(false);
   const [threadData, setThreadData] = useState<ThreadsInterface[]>(threads);
+  const [loading, setLoading] = useState(false);
 
   const handleCreateThreadButton = () => {
     showWindow ? setShowWindow(false) : setShowWindow(true);
   };
   const handleUpdate = async () => {
+    setLoading(true);
     const threads = (await getThreads({ params })) as ThreadsInterface[];
     setThreadData(threads);
+    setLoading(false);
   };
 
   // console.log({ threadData });
@@ -63,12 +67,21 @@ export default function ThreadComponent({
         >
           Beranda
         </Link>
-        <Button
-          onClick={handleUpdate}
-          className="bg-orange-300 font-semibold text-red-900 hover:bg-red-900 hover:text-orange-300"
-        >
-          Perbarui Katalog
-        </Button>
+
+        {loading ? (
+          <Button className="bg-red-900 font-semibold flex gap-2" disabled>
+            <ReloadIcon className="w-6 h-6 animate-spin" />
+            Memperbarui Katalog...
+          </Button>
+        ) : (
+          <Button
+            onClick={handleUpdate}
+            className="bg-orange-300 font-semibold text-red-900 hover:bg-red-900 hover:text-orange-300"
+          >
+            Perbarui Katalog
+          </Button>
+        )}
+
         <Input type="text" placeholder="Search" />
         <div className="self-end">
           <Select>
