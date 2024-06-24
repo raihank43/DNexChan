@@ -37,10 +37,16 @@ export default function ThreadComponent({
     const threads = (await getThreads({ params })) as ThreadsInterface[];
     setThreadData(threads);
   };
+
+  console.log({ threadData });
   return (
     <>
       {showWindow && (
-        <CreateThreadComponent setShowWindow={setShowWindow} params={params} />
+        <CreateThreadComponent
+          setShowWindow={setShowWindow}
+          params={params}
+          setThreadData={setThreadData}
+        />
       )}
       <section className="flex justify-center flex-col items-center p-5">
         <Button

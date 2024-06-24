@@ -5,57 +5,80 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 import { useToast } from "@/components/ui/use-toast";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ReloadIcon } from "@radix-ui/react-icons";
-
+import ThreadsInterface from "@/interfaces/threadsInterface";
 export function CreateThreadComponent({
   setShowWindow,
   params,
+  setThreadData,
 }: {
   setShowWindow: React.Dispatch<React.SetStateAction<boolean>>;
+  setThreadData: React.Dispatch<React.SetStateAction<ThreadsInterface[]>>;
   params: { boards: string };
 }) {
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
   console.log(loading, "loading state <<<<");
+  const [tempData, setTempData] = useState(null);
+
   const handleSubmit = async (formData: FormData) => {
     setLoading(true);
-    console.log(loading, "initial state <<<<");
-    try {
-      const data = await fetch(baseUrl + `/api/threads/${params.boards}`, {
-        method: "POST",
-        body: formData,
-      });
+    const data = fetch(baseUrl + `/api/threads/${params.boards}`, {
+      cache: "no-store",
+      method: "POST",
+      body: formData,
+    })
+      .then(async (res: any) => {
+        const response = await res.json();
+        console.log(response, "response");
+        if (response.status === 400) {
+          console.log("error", response.message);
+          toast({
+            title: "Uh oh! Something went wrong.",
+            description: response.message,
+            variant: "destructive",
+            className: "p-4",
+          });
+          setLoading(false);
+        }
 
-      console.log(loading, "<<<<");
-
-      const response = await data.json();
-
-      if (response.status === 400) {
-        console.log("error", response.message);
+        if (response.status === 200) {
+          toast({
+            title: "Success!",
+            description: "Thread created successfully.",
+            variant: "default",
+            className: "p-4 bg-green-500 text-white",
+          });
+          setLoading(false);
+          setTempData(response.data); // Menyimpan data ke state sementara
+          console.log("lewat sini");
+          // setShowWindow(false);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
         toast({
           title: "Uh oh! Something went wrong.",
-          description: response.message,
+          description: "Internal Server Error",
           variant: "destructive",
           className: "p-4",
         });
-      }
-
-      if (response.status === 200) {
-        toast({
-          title: "Success!",
-          description: "Thread created successfully.",
-          variant: "default",
-          className: "p-4 bg-green-500 text-white",
-        });
-        setShowWindow(false);
-      }
-
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-    }
+        setLoading(false);
+      });
   };
+
+  // Kemudian, di dalam useEffect atau callback lainnya
+  useEffect(() => {
+    if (tempData) {
+      console.log("masuk ke tempData >>>>", tempData); // Menampilkan data yang disimpan (opsional
+      setThreadData((prev) => [tempData, ...prev]);
+      setTempData(null); // Mengosongkan state sementara
+    }
+  }, [tempData]);
+
+  console.log(tempData, "tempData <<<<");
+
   return (
     <Draggable handle=".drag-handle">
       <div className="bg-orange-200 shadow-lg rounded-md border-2 border-red-900 absolute top-1/4 left-1/3 z-50 w-[500px]">

@@ -4,7 +4,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { v2 as cloudinary } from "cloudinary";
 import { ObjectId } from "mongodb";
 import uploadToCloudinary from "@/utils/cloudinary";
-
 export async function GET(
   req: NextRequest,
   { params }: { params: { boardInitial: string } }
