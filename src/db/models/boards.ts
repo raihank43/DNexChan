@@ -14,4 +14,10 @@ export default class BoardsModel {
       .collection("boards")
       .updateOne({ _id: boardId }, { $inc: { totalPosts: 1 } });
   }
+  static async countTotalPosts() {
+    return db
+      .collection("boards")
+      .aggregate([{ $group: { _id: null, total: { $sum: "$totalPosts" } } }])
+      .toArray();
+  }
 }

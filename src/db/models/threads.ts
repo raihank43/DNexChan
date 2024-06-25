@@ -78,4 +78,22 @@ export default class ThreadsModel {
       ])
       .toArray() as ThreadsInterface[];
   }
+
+  static async countTotalFileSize() {
+    return db
+      .collection("threads")
+      .aggregate([{ $group: { _id: null, total: { $sum: "$fileSize" } } }])
+      .toArray();
+  }
+
+  static async getAllUniqueIps() {
+    return db
+      .collection("threads")
+      .aggregate([
+        { $unwind: "$uniqueIps" },
+        { $group: { _id: "$uniqueIps" } },
+        { $count: "totalUniqueIps" },
+      ])
+      .toArray();
+  }
 }

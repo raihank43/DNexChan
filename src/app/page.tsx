@@ -21,9 +21,21 @@ async function getBoards() {
   return data;
 }
 
+async function getStats() {
+  const response = await fetch(baseUrl + "/api/boards/stats", {
+    cache: "no-store",
+  });
+  const data = (await response.json()) as StatsInterface;
+  if (!response.ok) {
+    throw new Error("Something went wrong!");
+  }
+  return data;
+}
+
 export default async function Home() {
   const ipAddress = await getIp();
   const boards = await getBoards();
+  const stats = await getStats();
 
   return (
     <main className="flex flex-col lg:px-60 md:px-60 sm:px-32 min-h-screen gap-2">
@@ -101,9 +113,23 @@ export default async function Home() {
         <h1 className="bg-orange-300 font-bold text-red-900 pl-2 rounded-t-sm">
           Statistik
         </h1>
-        <div className="bg-white flex">
-          <div className=""></div>
-          <p>Random</p>
+        <div className="bg-white flex p-6 justify-between">
+          <div className="flex gap-2">
+            <p className="font-bold text-red-900">Total Posts:</p>
+            <p className="font-semibold text-orange-600">{stats.totalPosts}</p>
+          </div>
+
+          <div className="flex gap-2">
+            <p className="font-bold text-red-900">Unique Users:</p>
+            <p className="font-semibold text-orange-600">{stats.users}</p>
+          </div>
+
+          <div className="flex gap-2">
+            <p className="font-bold text-red-900">Active Content:</p>
+            <p className="font-semibold text-orange-600">
+              {stats.activeContent}
+            </p>
+          </div>
         </div>
       </section>
 
