@@ -42,7 +42,11 @@ export default function ThreadComponent({
     setLoading(false);
   };
 
-  // console.log({ threadData });
+  // thread with isPinned: true will be displayed first
+  threadData.sort((a, b) =>
+    a.isPinned === b.isPinned ? 0 : a.isPinned ? -1 : 1
+  );
+
   return (
     <>
       {showWindow && (

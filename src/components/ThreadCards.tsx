@@ -11,6 +11,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import dateFormatter from "@/utils/dateFormatter";
+import { DrawingPinFilledIcon } from "@radix-ui/react-icons";
 
 // CSS untuk greentext
 
@@ -34,6 +35,10 @@ export default function ThreadCards({
               // isHoverable
               className="h-full bg-transparent"
             >
+              {thread.isPinned && (
+                <DrawingPinFilledIcon className="absolute text-blue-500 top-2 right-2 z-50 w-10 h-10" />
+              )}
+
               <CardBody className="overflow-auto p-0 scrollbar-hide">
                 <Image
                   // shadow="sm"
@@ -75,7 +80,10 @@ export default function ThreadCards({
         <TooltipContent className="border-none bg-slate-700 flex flex-col">
           <div className="flex gap-2 items-center">
             <p className="text-red-500 font-semibold">{thread.name}</p>
-            <a href={thread.imageUrl} className="text-red-500 underline text-xs">
+            <a
+              href={thread.imageUrl}
+              className="text-red-500 underline text-xs"
+            >
               {thread.fileName?.length > 20
                 ? thread.fileName.substring(0, 20) + "..."
                 : thread.fileName}
@@ -87,9 +95,15 @@ export default function ThreadCards({
             <p className="text-gray-300">{dateFormatter(thread.createdAt)}</p>
           </div>
           <div className="flex justify-center gap-2">
-            <p className="text-gray-300 font-bold">Replies: {thread.totalReplies}</p>
-            <p className="text-gray-300 font-bold">Files: {thread.totalFiles}</p>
-            <p className="text-gray-300 font-bold">Posters: {thread.totalUniqueIps}</p>
+            <p className="text-gray-300 font-bold">
+              Replies: {thread.totalReplies}
+            </p>
+            <p className="text-gray-300 font-bold">
+              Files: {thread.totalFiles}
+            </p>
+            <p className="text-gray-300 font-bold">
+              Posters: {thread.totalUniqueIps}
+            </p>
           </div>
         </TooltipContent>
       </Tooltip>
