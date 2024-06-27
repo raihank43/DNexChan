@@ -5,22 +5,14 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuPortal,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import ThreadsInterface from "@/interfaces/threadsInterface";
-import {
-  DropdownMenuIcon,
-  DoubleArrowDownIcon,
-  DoubleArrowUpIcon,
-} from "@radix-ui/react-icons";
+import { DoubleArrowDownIcon } from "@radix-ui/react-icons";
 import { useState } from "react";
+import { toast } from "./ui/use-toast";
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL as string;
+import DeleteThreadAlert from "./DeleteThreadAlert";
 
 export default function DropdownMenuThread({
   thread_Id,
@@ -31,6 +23,8 @@ export default function DropdownMenuThread({
   threadData: ThreadsInterface[];
   setThreadData: React.Dispatch<React.SetStateAction<ThreadsInterface[]>>;
 }) {
+  const [password, setPassword] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
   const handleDropDownMenuClick: React.MouseEventHandler<HTMLDivElement> = (
     event
   ) => {
@@ -39,15 +33,25 @@ export default function DropdownMenuThread({
   };
 
   const handleDeleteThread = async (threadId: string) => {
+    setLoading(true);
     const response = await fetch(baseUrl + "/api/threads/delete", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ threadId }),
+      body: JSON.stringify({ threadId, password }),
     });
 
-    const data = (await response.json()) as { status: number; message: string };
+    const data = await response.json();
+    if (data.status === 401) {
+      toast({
+        title: "Uh oh! Something went wrong.",
+        description: data.message,
+        variant: "destructive",
+        className: "p-4",
+      });
+      setLoading(false);
+    }
 
     // delete threadData from state
     if (data.status === 200) {
@@ -55,11 +59,15 @@ export default function DropdownMenuThread({
         (thread) => String(thread._id) !== threadId
       );
       setThreadData(newThreadData);
+      toast({
+        title: "Success!",
+        description: "Thread deleted successfully.",
+        variant: "default",
+        className: "p-4 bg-green-500 text-white",
+      });
+      setLoading(false);
     }
-
-    return data;
   };
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
@@ -73,12 +81,13 @@ export default function DropdownMenuThread({
           Thread Menu
         </DropdownMenuLabel>
         <DropdownMenuGroup>
-          <DropdownMenuItem
-            className="text-red-900 font-semibold"
-            onClick={() => handleDeleteThread(thread_Id)}
-          >
-            Delete
-          </DropdownMenuItem>
+          <DeleteThreadAlert
+            setPassword={setPassword}
+            handleDeleteThread={handleDeleteThread}
+            thread_Id={String(thread_Id)}
+            loading={loading}
+          />
+
           <DropdownMenuItem className="text-red-900 font-semibold">
             Report
           </DropdownMenuItem>

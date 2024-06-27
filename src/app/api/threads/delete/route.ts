@@ -18,6 +18,12 @@ export async function DELETE(request: NextRequest) {
         message: "Invalid Request.",
       });
     }
+    if (!data.password || data.password !== process.env.ADMIN_CREDENTIAL_KEY) {
+      return NextResponse.json({
+        status: 401,
+        message: "You are not allowed to delete this thread.",
+      });
+    }
     const { imageUrl, postNumber, BoardId } = await ThreadsModel.findThreadById(
       data.threadId
     );

@@ -30,7 +30,6 @@ export function CreateThreadComponent({
     })
       .then(async (res: any) => {
         const response = await res.json();
-        console.log(response, "response");
         if (response.status === 400) {
           console.log("error", response.message);
           toast({
