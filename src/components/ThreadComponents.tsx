@@ -112,6 +112,8 @@ export default function ThreadComponent({
             key={String(thread._id)}
             thread={thread}
             params={params}
+            threadData={threadData}
+            setThreadData={setThreadData}
           />
         ))}
       </section>

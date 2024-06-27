@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 import { db } from "../config";
 
 export default class BoardsModel {
@@ -8,6 +9,11 @@ export default class BoardsModel {
     return db
       .collection("boards")
       .findOne({ initial: board }) as BoardsInterface;
+  }
+  static async getBoardById(boardId: string) {
+    return db
+      .collection("boards")
+      .findOne({ _id: new ObjectId(boardId) }) as BoardsInterface;
   }
   static async updateBoardTotalPosts(boardId: string) {
     return db

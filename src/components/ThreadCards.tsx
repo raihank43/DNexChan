@@ -12,15 +12,21 @@ import {
 } from "@/components/ui/tooltip";
 import dateFormatter from "@/utils/dateFormatter";
 import { DrawingPinFilledIcon } from "@radix-ui/react-icons";
+import DropDownMenuThread from "./DropDownMenuThread";
+import React from "react";
 
 // CSS untuk greentext
 
 export default function ThreadCards({
   params,
   thread,
+  threadData,
+  setThreadData,
 }: {
   params: { boards: string };
   thread: ThreadsInterface;
+  threadData: ThreadsInterface[];
+  setThreadData: React.Dispatch<React.SetStateAction<ThreadsInterface[]>>;
 }) {
   return (
     <TooltipProvider>
@@ -51,9 +57,18 @@ export default function ThreadCards({
 
                 <div className="flex flex-col justify-center p-3 items-center">
                   <div className="flex flex-col justify-center items-center">
-                    <p className="text-sm font-bold">
-                      {`${thread.totalReplies} / ${thread.totalFiles} / ${thread.totalUniqueIps}`}
-                    </p>
+                    <div className="flex gap-2">
+                      <p className="text-sm font-bold gap-2">
+                        {`${thread.totalReplies} / ${thread.totalFiles} / ${thread.totalUniqueIps}`}
+                      </p>
+
+                      <DropDownMenuThread
+                        thread_Id={String(thread._id)}
+                        threadData={threadData}
+                        setThreadData={setThreadData}
+                      />
+                    </div>
+
                     <h3 className="text-xl font-bold text-red-700 text-center">
                       {thread.title}
                     </h3>

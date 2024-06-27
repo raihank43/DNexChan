@@ -1,5 +1,6 @@
 import ThreadsInterface from "@/interfaces/threadsInterface";
 import { db } from "../config";
+import { ObjectId } from "mongodb";
 
 export default class ThreadsModel {
   static async getThreads(BoardId: string) {
@@ -31,6 +32,12 @@ export default class ThreadsModel {
 
   static async createThread(thread: ThreadsInterface) {
     return db.collection("threads").insertOne(thread);
+  }
+
+  static async findThreadById(threadId: string) {
+    return db
+      .collection("threads")
+      .findOne({ _id: new ObjectId(threadId) }) as ThreadsInterface;
   }
 
   static async findThreadByPostNumber(postNumber: number, boardId: string) {
@@ -95,5 +102,13 @@ export default class ThreadsModel {
         { $count: "totalUniqueIps" },
       ])
       .toArray();
+  }
+
+  static async countAllThreads() {
+    return db.collection("threads").countDocuments();
+  }
+
+  static async deleteThreadById(threadId: string) {
+    return db.collection("threads").deleteOne({ _id: new ObjectId(threadId) });
   }
 }

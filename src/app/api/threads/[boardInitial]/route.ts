@@ -55,7 +55,7 @@ export async function POST(
     const lastPost = await ThreadsModel.findLatestThreadByIp(
       request.headers.get("x-real-ip") ?? "127.0.0.1"
     );
-    if (lastPost) {
+    if (lastPost.length !== 0) {
       const lastPostDate = new Date(lastPost[0].createdAt).getTime();
       const currentDate = new Date().getTime();
       if (currentDate - lastPostDate < 300000) {
