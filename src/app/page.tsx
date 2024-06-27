@@ -51,13 +51,13 @@ export default async function Home() {
           What is IndoChan?
         </h1>
         <p className="text-sm p-5">
-          IndoChan is a simple and modern image-based bulletin board based on
-          the infamous 4chan where anyone can post comments and share images.
-          There are boards dedicated to a variety of topics, from Japanese
-          animation and culture to videogames, music, and photography. Users do
-          not need to register an account before participating in the community.
-          Feel free to click on a board below that interests you and jump right
-          in!
+          IndoChan is a simple yet modern image-based bulletin board that takes
+          its inspiration from the infamous 4chan, where anyone can post
+          comments and share images. There are boards dedicated to a variety of
+          topics, ranging from Japanese animation and culture to videogames,
+          music, and politics. Users do not need to register an account
+          before participating in the community. Feel free to click on a board
+          below that interests you and jump right in!
         </p>
         {/* <Button>Click me</Button> */}
         <div className="mt-2">
@@ -134,7 +134,10 @@ export default async function Home() {
       </section>
 
       <footer className="flex justify-center bg-red-900 text-white p-2 my-5 rounded-lg shadow-lg">
-        <p>Copyright © IndoChan 2024</p>
+        <p>
+          Copyright © IndoChan 2024 - {new Date().getFullYear()} All Rights
+          Reserved.
+        </p>
       </footer>
     </main>
   );

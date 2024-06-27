@@ -4,6 +4,7 @@ import "./globals.css";
 import { NextUIProvider } from "@nextui-org/system";
 import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "@/components/ui/toaster";
+import FooterComponent from "@/components/FooterComponent";
 
 const inter = Inter({ subsets: ["latin"] });
 const montserrat = Montserrat({ subsets: ["latin"] });
@@ -29,6 +30,7 @@ export default function RootLayout({
           />
           <main className="flex min-h-screen flex-col antialiased bg-gradient-to-b from-orange-200 to-white transition-all ease-in-out duration-500">
             {children}
+            <FooterComponent />
           </main>
           <Toaster />
         </NextUIProvider>
