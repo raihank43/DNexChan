@@ -2,6 +2,7 @@ import ThreadCards from "@/components/ThreadCards";
 import { Image } from "@nextui-org/image";
 import Link from "next/link";
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL as string;
+import type { Metadata } from "next";
 
 async function getIp() {
   const response = await fetch(baseUrl + "/api/getIp");
@@ -32,6 +33,14 @@ async function getStats() {
   return data;
 }
 
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: "IndoChan",
+    description: "A simple and modern Indonesian image-based bulletin board",
+    icons: "/favicon.ico",
+  };
+}
+
 export default async function Home() {
   const ipAddress = await getIp();
   const boards = await getBoards();
@@ -55,9 +64,9 @@ export default async function Home() {
           its inspiration from the infamous 4chan, where anyone can post
           comments and share images. There are boards dedicated to a variety of
           topics, ranging from Japanese animation and culture to videogames,
-          music, and politics. Users do not need to register an account
-          before participating in the community. Feel free to click on a board
-          below that interests you and jump right in!
+          music, and politics. Users do not need to register an account before
+          participating in the community. Feel free to click on a board below
+          that interests you and jump right in!
         </p>
         {/* <Button>Click me</Button> */}
         <div className="mt-2">

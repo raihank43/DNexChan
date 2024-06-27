@@ -1,4 +1,4 @@
-import Thread from "@/app/[boards]/thread/[threadId]/page";
+import Thread from "@/app/[boards]/thread/[postNumber]/page";
 import BoardsModel from "@/db/models/boards";
 import ThreadsModel from "@/db/models/threads";
 import formatBytes from "@/utils/formatBytes";

@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL as string;
-import ThreadComponent from "@/components/ThreadComponents";
 import ThreadsInterface from "@/interfaces/threadsInterface";
 
 async function getBoard({ params }: { params: { boards: string } }) {
@@ -13,38 +12,51 @@ async function getBoard({ params }: { params: { boards: string } }) {
   return data as BoardsInterface;
 }
 
-async function getThreads({ params }: { params: { boards: string } }) {
+async function getThread({
+  params,
+}: {
+  params: { boards: string; postNumber: String };
+}) {
   "use server";
-  const threads = await fetch(baseUrl + `/api/threads/${params.boards}`, {
-    cache: "no-cache",
-  });
+  const threads = await fetch(
+    baseUrl + `/api/thread/${params.boards}/${params.postNumber}`,
+    {
+      cache: "no-cache",
+    }
+  );
   if (!threads.ok) {
     throw new Error("Something went wrong!");
   }
   const { data } = await threads.json();
-  return data as ThreadsInterface[];
+  return data as ThreadsInterface;
 }
 
 export async function generateMetadata({
   params,
 }: {
-  params: { boards: string };
+  params: { postNumber: string; boards: string };
 }): Promise<Metadata> {
-  const board = await getBoard({ params });
+  const thread = await getThread({ params });
+  const truncatedContent =
+    thread.content.length > 100
+      ? thread.content.slice(0, 100) + "..."
+      : thread.content;
   return {
-    title: `/${params.boards}/ - ${board.name} - IndoChan`,
-    description: "A simple and modern Indonesian image-based bulletin board",
+    title: `/${params.boards}/ - ${
+      thread.title ? thread.title : truncatedContent
+    } - IndoChan`,
+    description: truncatedContent,
     icons: "/favicon.ico",
   };
 }
 
-export default async function Boards({
+export default async function Thread({
   params,
 }: {
-  params: { boards: string };
+  params: { postNumber: string; boards: string };
 }) {
   const board = await getBoard({ params });
-  const threads = await getThreads({ params });
+  const thread = await getThread({ params });
   return (
     <main className="flex flex-col min-h-[150vh] gap-2 transition-all ease-in-out duration-500">
       <div className="px-10 mt-5">
@@ -58,13 +70,6 @@ export default async function Boards({
           </h1>
         </section>
       </div>
-
-      <ThreadComponent
-        getThreads={getThreads}
-        getBoard={getBoard}
-        params={params}
-        threads={threads}
-      />
     </main>
   );
 }

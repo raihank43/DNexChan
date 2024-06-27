@@ -11,7 +11,8 @@ const montserrat = Montserrat({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "IndoChan",
-  description: "A simple and modern Indonesian image-based bulletin board",
+  description: "AA simple and modern Indonesian image-based bulletin board",
+  icons: "/favicon.ico",
 };
 
 export default function RootLayout({
