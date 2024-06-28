@@ -1,0 +1,97 @@
+"use client";
+import ThreadsInterface from "@/interfaces/threadsInterface";
+import { Image } from "@nextui-org/image";
+import formatBytes from "@/utils/formatBytes";
+import GreentextFormatter from "@/utils/greentextFormatter";
+import dateFormatter from "@/utils/dateFormatter";
+import { useState } from "react";
+import { TriangleDownIcon, TriangleRightIcon } from "@radix-ui/react-icons";
+
+export default function ThreadOPCards({
+  thread,
+}: {
+  thread: ThreadsInterface;
+}) {
+  const [expandedImage, setExpandedImage] = useState(false);
+  const [expandedMenu, setExpandedMenu] = useState(false);
+  return (
+    <div className="flex gap-3 flex-col items-center sm:flex-col md:items-stretch bg-orange-200 w-full p-6 rounded-lg border-2 border-orange-300 shadow-sm">
+      <div className="flex gap-2 rounded-lg self-stretch ">
+        <a
+          href={thread.imageUrl}
+          className="text-xs underline text-center text-red-900 font-bold hover:text-red-700 ease-in-out duration-500"
+          target="_blank"
+        >
+          {thread.fileName}
+        </a>
+        <p className="text-red-900 text-xs">{`(${formatBytes(
+          thread.fileSize
+        )}, ${thread.fileRes})`}</p>
+      </div>
+
+      <div className="flex flex-col md:flex-row gap-2">
+        <div className="flex gap-2 flex-col justify-center">
+          <Image
+            radius="md"
+            src={thread.imageUrl}
+            width="100%"
+            alt="Indochan"
+            className={`object-contain min-h-[150px] ${
+              expandedImage ? `` : `max-h-[350px] `
+            } cursor-pointer`}
+            onClick={() => setExpandedImage(!expandedImage)}
+          />
+        </div>
+
+        <div className="flex flex-col w-full p-6 pt-0">
+          {thread.title && (
+            <p className="text-red-900 text-xl font-bold text-center md:text-start">
+              {thread.title}
+            </p>
+          )}
+          <div className="flex flex-col md:flex-row items-center gap-2  flex-wrap">
+            <p className="text-green-900 text-sm font-semibold">
+              {thread.name}
+            </p>
+            <p className="text-orange-700 text-sm ">
+              {dateFormatter(thread.createdAt)}
+            </p>
+            <p className="text-orange-900 text-sm font-semibold">
+              {`No. ${thread.postNumber}`}
+            </p>
+            {/* Replies */}
+            {expandedMenu ? (
+              <TriangleDownIcon
+                className="w-5 h-5 text-orange-900 ease-out duration-500 cursor-pointer hover:text-orange:700"
+                onClick={() => setExpandedMenu(!expandedMenu)}
+              />
+            ) : (
+              <TriangleRightIcon
+                className="w-5 h-5 text-orange-900 ease-out duration-500 cursor-pointer hover:text-orange:700"
+                onClick={() => setExpandedMenu(!expandedMenu)}
+              />
+            )}
+            <a
+              href="#"
+              className="border-b-2  border-blue-700 text-sm font-semibold text-blue-700 hover:text-blue-500 hover:border-b-blue-500 ease-in-out duration-500"
+            >{`>>1`}</a>
+            <a
+              href="#"
+              className="border-b-2  border-blue-700 text-sm font-semibold text-blue-700 hover:text-blue-500 hover:border-b-blue-500 ease-in-out duration-500"
+            >{`>>2`}</a>
+            <a
+              href="#"
+              className="border-b-2  border-blue-700 text-sm font-semibold text-blue-700 hover:text-blue-500 hover:border-b-blue-500 ease-in-out duration-500"
+            >{`>>3`}</a>
+          </div>
+
+          <div className="mt-5">
+            <p className="text-sm whitespace-pre-line">
+              {GreentextFormatter({ text: thread.content })}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

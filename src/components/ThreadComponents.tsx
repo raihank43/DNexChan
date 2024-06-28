@@ -106,7 +106,7 @@ export default function ThreadComponent({
         </div>
       </section>
 
-      <section className="gap-4 grid grid-cols-2 sm:grid-cols-2 items-center p-5 px-10 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-8 transition-all ease-in-out h-full duration-500">
+      <section className="gap-4 grid grid-cols-2 sm:grid-cols-2 items-center p-5 px-10 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-8 transition-all ease-in-out h-full duration-500 ">
         {threadData.map((thread) => (
           <ThreadCards
             key={String(thread._id)}

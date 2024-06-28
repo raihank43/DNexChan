@@ -33,7 +33,7 @@ export default function ThreadCards({
       <Tooltip>
         <TooltipTrigger asChild>
           <Link
-            href={`${params.boards}/thread/${thread.postNumber}`}
+            href={`/${params.boards}/thread/${thread.postNumber}`}
             className="transition-all ease-in-out duration-500 hover:z-40 h-96 overflow-y-scroll hover:scale-105 scrollbar-hide rounded-lg rounded-t-xl hover:shadow-sm hover:bg-orange-200 hover:p-3"
           >
             <Card

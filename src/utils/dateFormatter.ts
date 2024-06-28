@@ -26,5 +26,5 @@ export default function dateFormatter(dateString: Date) {
   const seconds = date.getSeconds().toString().padStart(2, "0");
 
   // Format the date and time components
-  return `${month}/${day}/${year}(${dayOfWeek})${hours}:${minutes}:${seconds}`;
+  return `${month}/${day}/${year} (${dayOfWeek}) ${hours}:${minutes}:${seconds}`;
 }

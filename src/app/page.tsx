@@ -83,7 +83,7 @@ export default async function Home() {
           {boards.map((board) => {
             return (
               <Link
-                href={board.initial}
+                href={`${board.initial}katalog`}
                 key={board._id}
                 className="text-red-900 font-semibold mb-2 border-b-2 border-red-900 hover:text-red-500 hover:border-red-500 ease-in-out duration-500"
               >

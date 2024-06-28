@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL as string;
 import ThreadsInterface from "@/interfaces/threadsInterface";
+import ThreadRepliesComponents from "@/components/ThreadRepliesComponents";
 
 async function getBoard({ params }: { params: { boards: string } }) {
   "use server";
@@ -70,6 +71,8 @@ export default async function Thread({
           </h1>
         </section>
       </div>
+
+      <ThreadRepliesComponents params={params} thread={thread} />
     </main>
   );
 }
