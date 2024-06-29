@@ -98,7 +98,7 @@ export default async function Home() {
         <h1 className="bg-orange-300 font-bold text-red-900 pl-2 rounded-t-sm">
           Post Terbaru
         </h1>
-        <div className="bg-white gap-4 grid grid-cols-2 p-6">
+        <div className="gap-4 grid grid-cols-2 p-6 bg-white rounded-md">
           <Image
             alt="Random"
             src="https://wallpapercave.com/wp/wp2564007.jpg"
@@ -122,7 +122,7 @@ export default async function Home() {
         <h1 className="bg-orange-300 font-bold text-red-900 pl-2 rounded-t-sm">
           Statistik
         </h1>
-        <div className="bg-white flex p-6 justify-between">
+        <div className="bg-white flex p-6 justify-between rounded-md">
           <div className="flex gap-2">
             <p className="font-bold text-red-900">Total Posts:</p>
             <p className="font-semibold text-orange-600">{stats.totalPosts}</p>

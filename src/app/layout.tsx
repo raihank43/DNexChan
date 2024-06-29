@@ -1,5 +1,12 @@
 import type { Metadata } from "next";
-import { Inter, Montserrat } from "next/font/google";
+import {
+  Inter,
+  Montserrat,
+  Lato,
+  Raleway,
+  Roboto_Slab,
+  Noto_Sans,
+} from "next/font/google";
 import "./globals.css";
 import { NextUIProvider } from "@nextui-org/system";
 import NextTopLoader from "nextjs-toploader";
@@ -8,6 +15,10 @@ import FooterComponent from "@/components/FooterComponent";
 
 const inter = Inter({ subsets: ["latin"] });
 const montserrat = Montserrat({ subsets: ["latin"] });
+const lato = Lato({ subsets: ["latin"], weight: ["400", "700"] });
+const raleway = Raleway({ subsets: ["latin"] });
+const roboto_slab = Roboto_Slab({ subsets: ["latin"] });
+const noto_sans = Noto_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "IndoChan",
@@ -22,7 +33,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={montserrat.className}>
+      <body className={noto_sans.className}>
         <NextUIProvider>
           <NextTopLoader
             color="#7F1D1D"
