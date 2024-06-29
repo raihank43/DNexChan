@@ -6,6 +6,8 @@ import {
   Raleway,
   Roboto_Slab,
   Noto_Sans,
+  Source_Code_Pro,
+  Poppins,
 } from "next/font/google";
 import "./globals.css";
 import { NextUIProvider } from "@nextui-org/system";
@@ -19,6 +21,8 @@ const lato = Lato({ subsets: ["latin"], weight: ["400", "700"] });
 const raleway = Raleway({ subsets: ["latin"] });
 const roboto_slab = Roboto_Slab({ subsets: ["latin"] });
 const noto_sans = Noto_Sans({ subsets: ["latin"] });
+const source_code_pro = Source_Code_Pro({ subsets: ["latin"] });
+const poppins = Poppins({ subsets: ["latin"], weight: ["400", "700"] });
 
 export const metadata: Metadata = {
   title: "IndoChan",
@@ -33,7 +37,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={noto_sans.className}>
+      <body className={poppins.className}>
         <NextUIProvider>
           <NextTopLoader
             color="#7F1D1D"

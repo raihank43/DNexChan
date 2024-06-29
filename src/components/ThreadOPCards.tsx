@@ -23,7 +23,7 @@ export default function ThreadOPCards({
   const [expandedImage, setExpandedImage] = useState(false);
   const [expandedMenu, setExpandedMenu] = useState(false);
   return (
-    <div className="flex gap-3 flex-col items-center sm:flex-col md:items-stretch bg-orange-200 w-full p-6 pt-4 rounded-lg shadow-md border-small border-orange-300">
+    <div className="flex gap-3 flex-col items-center sm:flex-col md:items-stretch bg-orange-100 w-full p-6 pt-4 rounded-lg shadow-md border-3 border-orange-300 ">
       <div className="flex gap-2 rounded-lg self-stretch ">
         <TooltipProvider>
           <Tooltip>
@@ -72,7 +72,7 @@ export default function ThreadOPCards({
               {thread.title}
             </p>
           )}
-          <div className="flex flex-col md:flex-row items-center gap-2  flex-wrap">
+          <div className="flex md:flex-row items-center gap-2  flex-wrap">
             {thread.email ? (
               <a
                 href={`mailto:${thread.email}`}

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import ThreadsInterface from "@/interfaces/threadsInterface";
 import ThreadOPCards from "./ThreadOPCards";
+import ThreadReplyCards from "./ThreadReplyCards";
 
 export default function ThreadRepliesComponents({
   params,
@@ -38,8 +39,14 @@ export default function ThreadRepliesComponents({
         </Button>
       </section>
 
-      <section className="flex flex-col  items-center p-5 px-10 transition-all ease-in-out h-full duration-500">
+      <section className="flex flex-col gap-3 p-5 px-10 transition-all ease-in-out h-full duration-500">
         <ThreadOPCards thread={thread} />
+        <ThreadReplyCards />
+        <ThreadReplyCards />
+        <ThreadReplyCards />
+        <ThreadReplyCards />
+        <ThreadReplyCards />
+        <ThreadReplyCards />
       </section>
     </>
   );
