@@ -5,7 +5,7 @@ export default function GreentextFormatter({ text }: { text: string }) {
     // Periksa apakah baris dimulai dengan '>'
     if (line.startsWith(">")) {
       return (
-        <span key={index} className="text-sm text-center text-green-600">
+        <span key={index} className="text-sm text-center text-green-700 font-semibold">
           {`>` + line.substring(1)}
           <br />
         </span>

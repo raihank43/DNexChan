@@ -50,7 +50,7 @@ export default function ThreadOPCards({
       </div>
 
       <div className="flex flex-col md:flex-row gap-2">
-        <div className="flex gap-2 flex-col justify-center">
+        <div className="flex gap-2 flex-col relative">
           {thread.isPinned && (
             <DrawingPinFilledIcon className="absolute text-blue-500 top-2 right-2 z-50 w-10 h-10" />
           )}
@@ -73,9 +73,18 @@ export default function ThreadOPCards({
             </p>
           )}
           <div className="flex flex-col md:flex-row items-center gap-2  flex-wrap">
-            <p className="text-green-700 text-sm font-semibold">
-              {thread.name}
-            </p>
+            {thread.email ? (
+              <a
+                href={`mailto:${thread.email}`}
+                className="text-green-900 underline text-sm font-semibold hover:text-green-700"
+              >
+                {thread.name}
+              </a>
+            ) : (
+              <p className="text-green-700 text-sm font-semibold">
+                {thread.name}
+              </p>
+            )}
 
             <TooltipProvider>
               <Tooltip>
@@ -93,6 +102,20 @@ export default function ThreadOPCards({
             <p className="text-orange-900 text-sm font-semibold">
               {`No. ${thread.postNumber}`}
             </p>
+
+            {thread.isPinned && (
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <DrawingPinFilledIcon className="text-blue-500 w-5 h-5" />
+                  </TooltipTrigger>
+                  <TooltipContent className="text-sm bg-slate-700 text-white border-none">
+                    Sticky
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            )}
+
             {/* Replies */}
             {expandedMenu ? (
               <TriangleDownIcon
