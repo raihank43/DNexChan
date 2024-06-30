@@ -44,7 +44,7 @@ export default function RootLayout({
             template='<div class="bar" role="bar">
           <div class="peg"></div></div></div>'
           />
-          <main className="flex min-h-screen flex-col antialiased bg-gradient-to-b from-orange-200 to-white transition-all ease-in-out duration-500">
+          <main className="flex min-h-screen flex-col antialiased bg-gradient-to-b from-orange-200 to-white animate-gradient-x transition-all ease-in-out duration-500">
             {children}
             <FooterComponent />
           </main>

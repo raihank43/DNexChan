@@ -20,7 +20,7 @@ export default function ThreadReplyCards() {
   const [expandedMenu, setExpandedMenu] = useState(false);
   return (
     <div className="flex flex-col items-center sm:flex-col md:items-stretch bg-orange-100 min-w-[100px] max-w-fit pt-0 rounded-lg shadow-md ">
-      <div className="flex w-full md:flex-row items-center gap-2  flex-wrap bg-orange-200 p-2 rounded-t-lg border-2 border-orange-300">
+      <div className="flex w-full md:flex-row items-center gap-2  flex-wrap bg-orange-200 p-2 rounded-t-lg border-t-2 border-x-2 border-orange-300">
         <p className="text-green-700 text-sm font-semibold">{"Awanama"}</p>
 
         <TooltipProvider>

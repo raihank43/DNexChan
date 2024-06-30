@@ -59,7 +59,7 @@ export default async function Thread({
   const board = await getBoard({ params });
   const thread = await getThread({ params });
   return (
-    <main className="flex flex-col min-h-[150vh] gap-2 transition-all ease-in-out duration-500">
+    <main className="flex flex-col min-h-[150vh] gap-2 transition-all ease-in-out duration-500 bg-gradient-to-b from-orange-100 to-threadRepliesColor">
       <div className="px-10 mt-5">
         <section className="flex justify-center flex-col items-center p-5 bg-orange-300 rounded-2xl shadow-sm  ">
           <h1 className="flex items-center text-4xl font-bold text-red-900">
