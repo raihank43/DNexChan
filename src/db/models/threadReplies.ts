@@ -29,4 +29,10 @@ export default class ThreadRepliesModel {
       .project({ ipAddress: 0 })
       .toArray() as ThreadRepliesInterface[];
   }
+
+  static async deleteAllRepliesByThreadId(threadId: string) {
+    return db
+      .collection("threadReplies")
+      .deleteMany({ ThreadId: new ObjectId(threadId) });
+  }
 }

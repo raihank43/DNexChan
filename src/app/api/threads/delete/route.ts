@@ -2,6 +2,7 @@ import ThreadsModel from "@/db/models/threads";
 import { NextRequest, NextResponse } from "next/server";
 import * as cloudinary from "cloudinary";
 import BoardsModel from "@/db/models/boards";
+import ThreadRepliesModel from "@/db/models/threadReplies";
 
 cloudinary.v2.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -35,12 +36,20 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ status: 404, message: "Board Not Found" });
     }
 
-    const partUrl = imageUrl.split("/");
-    const publicId = `indochan${board.initial}${postNumber}/${
-      partUrl[partUrl.length - 1].split(".")[0]
-    }`;
+    //? Old method to delete image from cloudinary, only delete the thread image
+    // const partUrl = imageUrl.split("/");
+    // const publicId = `indochan${board.initial}${postNumber}/${
+    //   partUrl[partUrl.length - 1].split(".")[0]
+    // }`;
+    // await cloudinary.v2.uploader.destroy(publicId);
 
-    await cloudinary.v2.uploader.destroy(publicId);
+    //? New method to delete all images in the thread
+    // delete cloudinary image in folder
+    await cloudinary.v2.api.delete_resources_by_prefix(
+      `indochan${board.initial}${postNumber}/`
+    );
+    // delete all thread replies
+    await ThreadRepliesModel.deleteAllRepliesByThreadId(data.threadId);
 
     await ThreadsModel.deleteThreadById(data.threadId);
 
