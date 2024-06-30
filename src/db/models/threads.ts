@@ -64,6 +64,7 @@ export default class ThreadsModel {
       ])
       .toArray() as ThreadsInterface[];
   }
+  
   static async findLatestThreadByIp(ipAddress: string) {
     return db
       .collection("threads")
@@ -110,5 +111,51 @@ export default class ThreadsModel {
 
   static async deleteThreadById(threadId: string) {
     return db.collection("threads").deleteOne({ _id: new ObjectId(threadId) });
+  }
+
+  static async updateUpdatedAt(threadId: string) {
+    return db
+      .collection("threads")
+      .updateOne(
+        { _id: new ObjectId(threadId) },
+        { $set: { updatedAt: new Date() } }
+      );
+  }
+
+  static async checkUniqueIpAndUpdate(threadId: string, ipAddress: string) {
+    db.collection("threads").updateOne({ _id: new ObjectId(threadId) }, [
+      {
+        $set: {
+          uniqueIps: {
+            $cond: {
+              if: { $in: [ipAddress, "$uniqueIps"] }, // Ganti "ipAddressBaru" dengan variabel IP address yang ingin Anda cek
+              then: "$uniqueIps", // Jika sudah ada, tidak melakukan apa-apa
+              else: { $concatArrays: ["$uniqueIps", [ipAddress]] }, // Jika tidak ada, tambahkan ke array
+            },
+          },
+          totalUniqueIps: {
+            $cond: {
+              if: { $in: [ipAddress, "$uniqueIps"] }, // Cek lagi apakah IP address sudah ada
+              then: "$totalUniqueIps", // Jika sudah ada, tidak menambah jumlahnya
+              else: { $add: ["$totalUniqueIps", 1] }, // Jika tidak ada, tambahkan jumlahnya
+            },
+          },
+        },
+      },
+    ]);
+  }
+
+  static async updateTotalReplies(threadId: string) {
+    db.collection("threads").updateOne(
+      { _id: new ObjectId(threadId) },
+      { $inc: { totalReplies: 1 } }
+    );
+  }
+
+  static async updateTotalFiles(threadId: string) {
+    db.collection("threads").updateOne(
+      { _id: new ObjectId(threadId) },
+      { $inc: { totalFiles: 1 } }
+    );
   }
 }
