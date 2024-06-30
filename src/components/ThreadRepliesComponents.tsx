@@ -4,13 +4,16 @@ import { Button } from "@/components/ui/button";
 import ThreadsInterface from "@/interfaces/threadsInterface";
 import ThreadOPCards from "./ThreadOPCards";
 import ThreadReplyCards from "./ThreadReplyCards";
+import ThreadRepliesInterface from "@/interfaces/threadRepliesInterface";
 
 export default function ThreadRepliesComponents({
   params,
   thread,
+  threadReplies,
 }: {
   params: { boards: string };
   thread: ThreadsInterface;
+  threadReplies: ThreadRepliesInterface[];
 }) {
   return (
     <>
@@ -41,12 +44,9 @@ export default function ThreadRepliesComponents({
 
       <section className="flex flex-col gap-3 p-5 px-10 transition-all ease-in-out h-full duration-500">
         <ThreadOPCards thread={thread} />
-        <ThreadReplyCards />
-        <ThreadReplyCards />
-        <ThreadReplyCards />
-        <ThreadReplyCards />
-        <ThreadReplyCards />
-        <ThreadReplyCards />
+        {threadReplies.map((reply) => (
+          <ThreadReplyCards key={String(reply._id)} reply={reply} />
+        ))}
       </section>
     </>
   );

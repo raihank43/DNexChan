@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL as string;
 import ThreadsInterface from "@/interfaces/threadsInterface";
 import ThreadRepliesComponents from "@/components/ThreadRepliesComponents";
+import ThreadRepliesInterface from "@/interfaces/threadRepliesInterface";
 
 async function getBoard({ params }: { params: { boards: string } }) {
   "use server";
@@ -32,6 +33,16 @@ async function getThread({
   return data as ThreadsInterface;
 }
 
+async function getThreadReplies({ threadId }: { threadId: string }) {
+  "use server";
+  const threadReplies = await fetch(baseUrl + `/api/threadReplies/${threadId}`);
+  if (!threadReplies.ok) {
+    throw new Error("Something went wrong!");
+  }
+  const { data } = await threadReplies.json();
+  return data as ThreadRepliesInterface[];
+}
+
 export async function generateMetadata({
   params,
 }: {
@@ -58,6 +69,9 @@ export default async function Thread({
 }) {
   const board = await getBoard({ params });
   const thread = await getThread({ params });
+  const threadReplies = await getThreadReplies({
+    threadId: String(thread._id),
+  });
   return (
     <main className="flex flex-col min-h-[150vh] gap-2 transition-all ease-in-out duration-500 bg-gradient-to-b from-orange-100 to-threadRepliesColor">
       <div className="px-10 mt-5">
@@ -72,7 +86,11 @@ export default async function Thread({
         </section>
       </div>
 
-      <ThreadRepliesComponents params={params} thread={thread} />
+      <ThreadRepliesComponents
+        params={params}
+        thread={thread}
+        threadReplies={threadReplies}
+      />
     </main>
   );
 }
