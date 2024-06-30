@@ -5,6 +5,8 @@ import ThreadsInterface from "@/interfaces/threadsInterface";
 import ThreadOPCards from "./ThreadOPCards";
 import ThreadReplyCards from "./ThreadReplyCards";
 import ThreadRepliesInterface from "@/interfaces/threadRepliesInterface";
+import { useEffect, useState } from "react";
+import CreateRepliesComponent from "./CreateRepliesComponent";
 
 export default function ThreadRepliesComponents({
   params,
@@ -15,10 +17,45 @@ export default function ThreadRepliesComponents({
   thread: ThreadsInterface;
   threadReplies: ThreadRepliesInterface[];
 }) {
+  const [showWindow, setShowWindow] = useState(false);
+  const handleCreateRepliesButton = () => {
+    showWindow ? setShowWindow(false) : setShowWindow(true);
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "q") {
+        setShowWindow(true);
+      } else if (event.key === "Escape") {
+        setShowWindow(false);
+      }
+    };
+
+    // Menambahkan event listener ketika komponen dimuat
+    window.addEventListener("keydown", handleKeyDown);
+
+    // Menghapus event listener ketika komponen akan di-unmount
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [setShowWindow]); // Pastikan useEffect ini dijalankan lagi hanya jika setShowWindow berubah
+
   return (
     <>
+      {showWindow && (
+        <CreateRepliesComponent
+          threadReplies={threadReplies}
+          setShowWindow={setShowWindow}
+          thread={thread}
+        />
+      )}
       <section className="flex justify-center flex-col items-center p-5">
-        <Button className="bg-red-900 font-semibold">Balas Utas</Button>
+        <Button
+          className="bg-red-900 font-semibold"
+          onClick={handleCreateRepliesButton}
+        >
+          Balas Utas
+        </Button>
       </section>
 
       <section className="flex gap-2  mx-10 py-3 border-y-2  border-orange-300 ">

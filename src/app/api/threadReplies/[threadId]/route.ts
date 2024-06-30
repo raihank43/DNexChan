@@ -94,7 +94,7 @@ export async function POST(
       height: 0,
       bytes: 0,
     };
-    if (file) {
+    if (file && file.size > 0) {
       if (file.size > 3000000) {
         return NextResponse.json({
           status: 400,
@@ -142,7 +142,7 @@ export async function POST(
     await ThreadsModel.updateTotalReplies(params.threadId);
 
     // update total files in the thread, if file exists
-    if (file) {
+    if (file && file.size > 0) {
       await ThreadsModel.updateTotalFiles(params.threadId);
     }
 
@@ -151,7 +151,7 @@ export async function POST(
       data: createdReply,
     });
   } catch (error) {
-    console.log(error);
+    console.log(error, "<<<<<");
     return NextResponse.json({
       status: 500,
       message: "Internal Server Error",

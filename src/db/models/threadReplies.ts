@@ -35,4 +35,22 @@ export default class ThreadRepliesModel {
       .collection("threadReplies")
       .deleteMany({ ThreadId: new ObjectId(threadId) });
   }
+
+  static async countAllReplies() {
+    return db.collection("threadReplies").countDocuments();
+  }
+
+  static async countTotalFileSize() {
+    return db
+      .collection("threadReplies")
+      .aggregate([
+        {
+          $group: {
+            _id: null,
+            total: { $sum: "$fileSize" },
+          },
+        },
+      ])
+      .toArray();
+  }
 }
