@@ -15,17 +15,38 @@ import {
 import getTimeSincePosted from "@/utils/getTimeSincePosted";
 import { DrawingPinFilledIcon } from "@radix-ui/react-icons";
 import ThreadRepliesInterface from "@/interfaces/threadRepliesInterface";
+import { RepliesQuotationHover } from "./RepliesQuotationHover";
 
 export default function ThreadReplyCards({
   reply,
+  onSelectPost,
+  isSelected,
+  threadReplies,
 }: {
   reply: ThreadRepliesInterface;
+  onSelectPost: (postNumber: Number) => void;
+  isSelected: boolean;
+  threadReplies: ThreadRepliesInterface[];
 }) {
   const [expandedImage, setExpandedImage] = useState(false);
   const [expandedMenu, setExpandedMenu] = useState(false);
+
+  const handleClick = (postNumberTarget: Number) => {
+    onSelectPost(postNumberTarget);
+  };
+
   return (
-    <div className="flex flex-col items-center sm:flex-col md:items-stretch bg-orange-100 min-w-[100px] max-w-fit pt-0 rounded-lg shadow-md ">
-      <div className="flex w-full md:flex-row items-center gap-2  flex-wrap bg-orange-200 p-2 rounded-t-lg border-t-2 border-x-2 border-orange-300">
+    <div
+      id={`${reply.postNumber}`}
+      className={`flex flex-col items-center sm:flex-col md:items-stretch bg-orange-100 min-w-[100px] max-w-fit pt-0 rounded-lg shadow-md ${
+        isSelected ? "bg-orange-200 ease-out duration-500" : ""
+      }`}
+    >
+      <div
+        className={`flex w-full md:flex-row items-center gap-2  flex-wrap bg-orange-200 p-2 rounded-t-lg border-t-2 border-x-2 border-orange-300 ${
+          isSelected ? "bg-orange-300 ease-out duration-500 " : ""
+        }`}
+      >
         <p className="text-green-700 text-sm font-semibold">{reply.name}</p>
 
         <TooltipProvider>
@@ -58,78 +79,23 @@ export default function ThreadReplyCards({
           />
         )}
 
-        <a
-          href="#"
-          className="border-b-2  border-blue-700 text-sm font-semibold text-blue-700 hover:text-blue-500 hover:border-b-blue-500 ease-in-out duration-500"
-        >{`>>1`}</a>
-        <a
-          href="#"
-          className="border-b-2  border-blue-700 text-sm font-semibold text-blue-700 hover:text-blue-500 hover:border-b-blue-500 ease-in-out duration-500"
-        >{`>>2`}</a>
-        <a
-          href="#"
-          className="border-b-2  border-blue-700 text-sm font-semibold text-blue-700 hover:text-blue-500 hover:border-b-blue-500 ease-in-out duration-500"
-        >{`>>3`}</a>
-        <a
-          href="#"
-          className="border-b-2  border-blue-700 text-sm font-semibold text-blue-700 hover:text-blue-500 hover:border-b-blue-500 ease-in-out duration-500"
-        >{`>>1`}</a>
-        <a
-          href="#"
-          className="border-b-2  border-blue-700 text-sm font-semibold text-blue-700 hover:text-blue-500 hover:border-b-blue-500 ease-in-out duration-500"
-        >{`>>2`}</a>
-        <a
-          href="#"
-          className="border-b-2  border-blue-700 text-sm font-semibold text-blue-700 hover:text-blue-500 hover:border-b-blue-500 ease-in-out duration-500"
-        >{`>>3`}</a>
-        <a
-          href="#"
-          className="border-b-2  border-blue-700 text-sm font-semibold text-blue-700 hover:text-blue-500 hover:border-b-blue-500 ease-in-out duration-500"
-        >{`>>1`}</a>
-        <a
-          href="#"
-          className="border-b-2  border-blue-700 text-sm font-semibold text-blue-700 hover:text-blue-500 hover:border-b-blue-500 ease-in-out duration-500"
-        >{`>>2`}</a>
-        <a
-          href="#"
-          className="border-b-2  border-blue-700 text-sm font-semibold text-blue-700 hover:text-blue-500 hover:border-b-blue-500 ease-in-out duration-500"
-        >{`>>3`}</a>
-        <a
-          href="#"
-          className="border-b-2  border-blue-700 text-sm font-semibold text-blue-700 hover:text-blue-500 hover:border-b-blue-500 ease-in-out duration-500"
-        >{`>>1`}</a>
-        <a
-          href="#"
-          className="border-b-2  border-blue-700 text-sm font-semibold text-blue-700 hover:text-blue-500 hover:border-b-blue-500 ease-in-out duration-500"
-        >{`>>2`}</a>
-        <a
-          href="#"
-          className="border-b-2  border-blue-700 text-sm font-semibold text-blue-700 hover:text-blue-500 hover:border-b-blue-500 ease-in-out duration-500"
-        >{`>>3`}</a>
-        <a
-          href="#"
-          className="border-b-2  border-blue-700 text-sm font-semibold text-blue-700 hover:text-blue-500 hover:border-b-blue-500 ease-in-out duration-500"
-        >{`>>1`}</a>
-        <a
-          href="#"
-          className="border-b-2  border-blue-700 text-sm font-semibold text-blue-700 hover:text-blue-500 hover:border-b-blue-500 ease-in-out duration-500"
-        >{`>>2`}</a>
-        <a
-          href="#"
-          className="border-b-2  border-blue-700 text-sm font-semibold text-blue-700 hover:text-blue-500 hover:border-b-blue-500 ease-in-out duration-500"
-        >{`>>3`}</a>
-        <a
-          href="#"
-          className="border-b-2  border-blue-700 text-sm font-semibold text-blue-700 hover:text-blue-500 hover:border-b-blue-500 ease-in-out duration-500"
-        >{`>>1`}</a>
-        <a
-          href="#"
-          className="border-b-2  border-blue-700 text-sm font-semibold text-blue-700 hover:text-blue-500 hover:border-b-blue-500 ease-in-out duration-500"
-        >{`>>2`}</a>
-        <a
-          href="#"
-          className="border-b-2  border-blue-700 text-sm font-semibold text-blue-700 hover:text-blue-500 hover:border-b-blue-500 ease-in-out duration-500"
-        >{`>>3`}</a>
+        {reply.listReplies?.map((eachPostNumberReply) => (
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <a
+                  href={`#${eachPostNumberReply}`}
+                  onClick={() => handleClick(eachPostNumberReply)}
+                  className="border-b-2  border-blue-700 text-sm font-semibold text-blue-700 hover:text-blue-500 hover:border-b-blue-500 ease-in-out duration-500"
+                >{`>>${eachPostNumberReply}`}</a>
+              </TooltipTrigger>
+              <RepliesQuotationHover
+                threadReplies={threadReplies}
+                postNumberTarget={eachPostNumberReply}
+              />
+            </Tooltip>
+          </TooltipProvider>
+        ))}
       </div>
 
       <div

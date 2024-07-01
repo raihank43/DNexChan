@@ -7,6 +7,7 @@ import ThreadReplyCards from "./ThreadReplyCards";
 import ThreadRepliesInterface from "@/interfaces/threadRepliesInterface";
 import { useEffect, useState } from "react";
 import CreateRepliesComponent from "./CreateRepliesComponent";
+import processExistingReplies from "@/utils/processListRepliesForExistingData";
 
 export default function ThreadRepliesComponents({
   params,
@@ -20,6 +21,13 @@ export default function ThreadRepliesComponents({
   const [showWindow, setShowWindow] = useState(false);
   const handleCreateRepliesButton = () => {
     showWindow ? setShowWindow(false) : setShowWindow(true);
+  };
+  const [selectedPostNumber, setSelectedPostNumber] = useState<Number | null>(
+    null
+  );
+
+  const handleSelectPost = (postNumber: Number) => {
+    setSelectedPostNumber(postNumber);
   };
 
   useEffect(() => {
@@ -40,6 +48,8 @@ export default function ThreadRepliesComponents({
     };
   }, [setShowWindow]); // Pastikan useEffect ini dijalankan lagi hanya jika setShowWindow berubah
 
+  // Memproses data replies yang sudah ada
+  threadReplies = processExistingReplies(threadReplies);
   return (
     <>
       {showWindow && (
@@ -82,7 +92,13 @@ export default function ThreadRepliesComponents({
       <section className="flex flex-col gap-3 p-5 px-10 transition-all ease-in-out h-full duration-500">
         <ThreadOPCards thread={thread} />
         {threadReplies.map((reply) => (
-          <ThreadReplyCards key={String(reply._id)} reply={reply} />
+          <ThreadReplyCards
+            key={String(reply._id)}
+            reply={reply}
+            onSelectPost={handleSelectPost}
+            isSelected={selectedPostNumber === reply.postNumber}
+            threadReplies={threadReplies}
+          />
         ))}
       </section>
     </>
