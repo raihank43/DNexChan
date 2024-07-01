@@ -79,8 +79,8 @@ export default function ThreadReplyCards({
           />
         )}
 
-        {reply.listReplies?.map((eachPostNumberReply) => (
-          <TooltipProvider>
+        {reply.listReplies?.map((eachPostNumberReply, index) => (
+          <TooltipProvider key={index}>
             <Tooltip>
               <TooltipTrigger asChild>
                 <a
